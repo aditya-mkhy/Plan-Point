@@ -8,6 +8,8 @@ A website to make seating plan for exam.
 &nbsp; &nbsp; &nbsp; 
 <br>
 &nbsp; &nbsp; &nbsp;
+<br>
 &nbsp; &nbsp; &nbsp;
+
 ![image](https://github.com/aditya-mkhy/Plan-Point/assets/88531382/9e497913-54b8-4e4a-9eb8-9ccbd3314474)
 
