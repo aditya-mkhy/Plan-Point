@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Class {{map_data_room_number}}{% endblock titlename %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/classes.css">
+{% endblock head %}
+{% block body %}
+
+<div class="batch-short-view-container batch-short-view-container">
+    {% if Admin %}
+    {% if batch_selection == "batch-selection-off" %}
+    <div class="batch-short-view batch-short-view-shade">
+        <a href="/addbatch" class="bodyherif">
+            <h3>Add Batch</h3>
+            <div class="batch-info-div batch-info-div-add">
+                <i class='bx bx-plus-medical'></i>
+                <i class='bx bxs-group'></i>
+            </div>
+        </a>
+    </div>
+    {% endif %}
+    {% endif %}
+
+
+
+    {% if batch_data %}
+    {% for batch in batch_data %}
+
+    <div class="batch-short-view batch-short-view-shade {{batch_selection}}">
+        <a href="/class?action=batch&batchid={{batch.2}}" class="bodyherif">
+            <div class="batch-head-div">
+                <h3>{{batch.0}} {{batch.1}}</h3>
+                {% if Admin %}
+                <i class='bx bx-plus-circle batch-select-button' idnum="{{batch.2}}" selected="{{batch.4}}"
+                    onclick="select_button_cmd(this)"></i>
+                {% endif %}
+            </div>
+
+            <div class="batch-info-div">
+                <div class="batch-info-left">
+                    <p>Batch : {{batch.2}}</p>
+                    <p>Strength : {{batch.3}}</p>
+                </div>
+                <a class="batch-info-right">
+                    <i class='bx bx-edit'></i>
+                </a>
+            </div>
+        </a>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+
+    {% if student_data %}
+    <div class="list-view-batch">
+        <div class="list-view-batch-details">
+            <h4>Class : {{student_batch_data.0}} {{student_batch_data.1}}</h4>
+            <h4>Batch : {{student_batch_data.2}}</h4>
+        </div>
+
+        <table class="batch-detail-table">
+            <tr class="table-heading">
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th>E-mail</th>
+            </tr>
+            {% for record in student_data %}
+            <tr>
+                <td>{{record.0}}</td>
+                <td>{{record.1}}</td>
+                <td>{{record.2}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    const boxes = document.querySelectorAll('.bodyherif');
+
+    boxes.forEach(box => {
+        box.addEventListener('click', function handleClick(event) {
+            if (event.target.nodeName == 'I') {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+    });
+
+
+    async function select_button_cmd(elmt) {
+        var selected_val = elmt.getAttribute("selected");
+        var idnum = elmt.getAttribute("idnum");
+        if (selected_val == "0") {
+            console.log("selected_the_value")
+
+            var st = await sendCommandToServer(idnum, "1");
+            console.log("stst==>", st);
+            if (st == 1) {
+                elmt.setAttribute("selected", "1");
+                elmt.classList.remove("bx-plus-circle");
+                elmt.classList.add("bx-minus-circle");
+                elmt.style.color = "orangered";
+                elmt.parentElement.parentElement.parentElement.style.backgroundColor = "#a3f787";
+            }
+
+            else {
+                console.log("Error in getting status...")
+            }
+
+
+        }
+
+        else {
+
+            var st = await sendCommandToServer(idnum, "0");
+            console.log("stst==>", st)
+            if (st == 1) {
+                console.log("deselected_the_value")
+                elmt.setAttribute("selected", "0");
+                elmt.classList.remove("bx-minus-circle");
+                elmt.classList.add("bx-plus-circle");
+                elmt.style.color = "black";
+                elmt.parentElement.parentElement.parentElement.style.backgroundColor = "#fcf2c5";
+            }
+
+            else {
+                console.log("Error in getting status...")
+            }
+        }
+    }
+
+    const selected_box = document.querySelectorAll('.batch-select-button');
+    selected_box.forEach(elmt => {
+        if (elmt.getAttribute("selected") == "1") {
+            elmt.parentElement.parentElement.parentElement.style.backgroundColor = "#a3f787";
+            elmt.classList.remove("bx-plus-circle");
+            elmt.classList.add("bx-minus-circle");
+            elmt.style.color = "orangered";
+            elmt.parentElement.parentElement.parentElement.style.backgroundColor = "#a3f787";
+        }
+    });
+
+
+
+    async function sendCommandToServer(idnum, status) {
+        return await fetch(`${window.origin}/class?action=cmd&cmd=${idnum}&stat=${status}`, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'action': 'cmd',
+                'cmd': idnum,
+                'stat': status
+            }
+
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log('Data==>', data);
+            if ('stat' in data) {
+                if (data['stat'] == "1") {
+                    return 1;
+                }
+
+                else {
+                    return 0;
+                }
+
+            }
+            else {
+                return 0;
+            }
+        });
+    }
+
+
+</script>
+
+{% endblock body %}

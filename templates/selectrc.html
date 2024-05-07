@@ -1,0 +1,396 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Select Rooms And Classes {{map_data_room_number}}{% endblock titlename %}
+
+{% block body %}
+
+<div class="select-items-main-cont">
+    <div class="plan-detils-div">
+        <div class="selected-rooms-heading-div best-border-design">
+            Plan Details
+        </div>
+
+        <div class="plan-details-cont">
+            <div class="plain-one-detail-cont-div">
+                <div class="one-input-cont">
+                    <h6>ID</h6>
+                    <h5>{{idd}}</h5>
+                </div>
+
+                <div class="one-input-cont one-input-cont-left">
+                    <h6>Name </h6>
+                    <h5>{{planame}}</h5>
+                </div>
+
+            </div>
+
+            <div class="plain-one-detail-cont-div plain-one-detail-cont-div-2">
+                <div class="one-input-cont">
+                    <h6>Date </h6>
+                    <h5>{{plandate}}</h5>
+                </div>
+
+                <div class="one-input-cont one-input-cont-left">
+                    <h6>Shift</h6>
+                    <h5>{{planshift}}</h5>
+                </div>
+
+            </div>
+
+
+            <div class="plain-one-detail-cont-div plain-one-detail-cont-div-2">
+
+                    <div class="input-contain ">
+
+                        <select name="spalgorithm" id="spalgorithm" class="gender-input">
+                            <!--<option selected disabled hidden>Choose</option>-->
+                            {% for algo in algorithm %}
+                            <option value="{{algo}}">{{algo}}</option>
+                            {% endfor %}
+                        </select>
+
+
+                        <label class="placeholder-text" for="spalgorithm" id="placeholder-spalgorithm">
+                            <div class="text">Algorithm</div>
+                        </label>
+
+                    </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="selected-rooms-div">
+        <div class="selected-rooms-heading-div best-border-design">
+            Selected Rooms
+        </div>
+        <div class="selected-room-cont best-border-design">
+            {% if rooms %}
+            {% for room in rooms %}
+
+            <div class="short-room-div">
+                <a href="/rooms?action=showroom&roomnum={{room}}">
+                    <h5>{{room}}</h5>
+                </a>
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <h5>Please Select Rooms</h5>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <div class="selected-class-div selected-rooms-div">
+
+        <div class="selected-rooms-heading-div best-border-design">
+            Selected Class
+        </div>
+
+        <div class="selected-room-cont best-border-design">
+            {% if batch %}
+            {% for abatch in batch.items %}
+            <div class="short-class-div">
+                <h5>{{abatch.1}}</h5>
+
+                <select name="subjet" id="subject" class="subject-input">
+                    <option value="subject">Subject</option>
+                    <option value="Maths">Maths</option>
+                    <option value="OS">OS</option>
+                </select>
+
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <h5>Please Select Class</h5>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="calculate-button-div">
+        <a onclick='makeplan_fun()' id="showarang">
+            Show Arrangement
+        </a>
+
+        <a href="/plan?action=cmd&cmd=delplan">
+            Delete Plan
+        </a>
+    </div>
+
+
+</div>
+
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: #fcfcfc;
+    }
+
+    .select-items-main-cont {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 30px;
+        border: 1px solid black;
+        padding: 20px;
+        border-radius: 12px;
+
+    }
+
+    .input-contain {
+        position: relative;
+        margin-top: 30px;
+    }
+
+    #showarang {
+        cursor: pointer;
+    }
+
+
+     input,
+        .gender-input {
+            height: 42px;
+            width: 340px;
+            border: 1px solid black;
+            border-radius: 6px;
+            padding: 0px 12px;
+            background-color: inherit;
+            font-size: 18px;
+            cursor:pointer;
+
+        }
+
+        input:focus,
+        .gender-input:focus {
+            outline: none;
+            border: 2px solid #0065ff;
+        }
+
+        input:focus+.placeholder-text .text,
+        .gender-input:focus .placeholder-text .text,
+        :not(input[value=""])+.placeholder-text .text,
+        #dobid:valid+.placeholder-text .text  {
+            background-color: #f8f8f8;
+            color: black;
+            transform: translate(0, -115%);
+            padding: 0px 4px;
+            margin-left: 10px;
+            font-size: 15px;
+        }
+
+
+        input:focus+.placeholder-text .text,
+        .gender-input:focus+.placeholder-text .text {
+            border-color: #0065ff;
+            color: #0065ff;
+            padding: 0px 4px;
+            margin-left: 10px;
+            font-size: 15px;
+        }
+
+        .placeholder-text {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: transparent;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+
+
+
+        }
+    .plan-detils-div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .plan-details-cont {
+        display: flex;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgb(170, 167, 167);
+        border-radius: 8px;
+        margin-bottom: 25px;
+        padding: 25px 50px;
+        border-top-left-radius: 0px;
+
+    }
+
+
+    .best-border-design {
+        border: 1px solid rgb(170, 167, 167);
+        border-radius: 8px;
+
+    }
+
+    .selected-rooms-div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .selected-rooms-heading-div {
+        width: 150px;
+        padding: 2px 15px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom: none;
+    }
+
+    .selected-room-cont {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        height: fit-content;
+        border-top-left-radius: 0px;
+        padding: 5px;
+    }
+
+    .short-room-div {
+        display: flex;
+        font-size: 20px;
+        background-color: #e3f9f9;
+        width: 90px;
+        height: 40px;
+        border: 1px solid rgb(170, 167, 167);
+        border-radius: 5px;
+        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        margin: 8px;
+    }
+
+    .short-room-div a {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .selected-class-div {
+        margin-top: 50px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .short-class-div {
+        display: flex;
+        width: 180px;
+        height: 80px;
+        background-color: #fcf2c5;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+
+        font-size: 20px;
+        border: 1px solid rgb(170, 167, 167);
+        border-radius: 5px;
+        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        margin: 8px;
+    }
+
+    .short-class-div h5 {
+        margin-top: 5px;
+    }
+
+
+    .subject-input {
+        /* border: none; */
+        outline: none;
+        font-size: 1rem;
+        margin-top: 12px;
+        background-color: inherit;
+        border-radius: 3px;
+
+    }
+
+    .one-input-cont {
+        border-bottom: 1px solid black;
+        min-width: 120px;
+        padding-left: 2px;
+
+    }
+
+    .one-input-cont h6 {
+        color: #0065ff;
+        font-weight: 500;
+    }
+
+    .one-input-cont h5 {
+        font-weight: 600;
+    }
+
+    .plain-one-detail-cont-div {
+        display: flex;
+        width: 100%;
+    }
+
+    .plain-one-detail-cont-div-2 {
+        margin-top: 30px;
+    }
+
+    .one-input-cont-left {
+        margin-left: 120px;
+    }
+
+    .calculate-button-div {
+        display: flex;
+        width: 100%;
+        flex-direction: row-reverse;
+        margin-top: 30px;
+    }
+
+    .calculate-button-div a {
+        text-decoration: none;
+        color: #fff;
+        background-color: rgb(26, 115, 232);;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-size: 17px;
+        margin-left: 100px;
+    }
+</style>
+
+<script>
+    let algoElmnt = document.querySelector("#spalgorithm");
+
+    function makeplan_fun() {
+        let model = algoElmnt.value
+        window.location = `${window.origin}/makeplan?model=${model}`
+    }
+
+</script>
+{% endblock body %}

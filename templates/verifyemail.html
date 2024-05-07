@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Verify Your Email ID</title>
+    <link rel="icon" href="/static/img/desk.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <div class="verifymail">
+        <div class="heading">
+            <div class="heading">
+                <img class="logo" src="/static/img/verifyEmailIicon.jpg" alt="">
+            </div>
+
+            <div class="heading">
+                <h2>Verify your email</h2>
+            </div>
+
+            <div class="heading">
+                <p class="info">
+                    We've sent an <a href="https://mail.google.com/" style="text-decoration: none;">email</a> to
+                    {{hiddenmail}} to verify your email address
+                    and activate your account. The link in the email will expire in 24 hours.
+                </p>
+
+            </div>
+            <div class="heading ">
+                <p class="info2"> <a class="click">Click here</a> if you didi not receive an email
+                    or would like to chnage the email address you signed up with</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: system-ui;
+            /* Stop selection of text */
+
+            user-select: none;
+            /* supported by Chrome and Opera */
+            -webkit-user-select: none;
+            /* Safari */
+            -khtml-user-select: none;
+            /* Konqueror HTML */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge */
+        }
+
+        body {
+            width: auto;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+        }
+
+
+        .verifymail {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            width: 750px;
+            height: 450px;
+            border-radius: 12px;
+            /*set to a negative number 1/2 of your height*/
+            background-color: inherit;
+
+            box-shadow: rgba(45, 45, 94, 0.3) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64,
+                    0.35) 0px -2px 6px 0px inset;
+
+
+        }
+
+
+        .logo {
+            position: relative;
+            background: none;
+            width: 170px;
+            background-color: none;
+            color: none;
+            margin-top: 5px;
+
+        }
+
+        .heading {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+
+
+        }
+
+
+        h2 {
+            text-align: center;
+            font-size: 45px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0px;
+
+            text-shadow: 1px 1px 1px grey;
+
+        }
+
+        .info {
+            margin-top: 25px;
+            margin: 25px 70px 10px 70px;
+            color: #222324;
+            font-size: 16px;
+        }
+
+        .info2 {
+
+            margin-top: 30px;
+            color: #3f4246;
+            font-size: 15px;
+
+            margin: 30px 120px 10px 120px;
+
+        }
+
+        .click {
+
+            color: #0065ff;
+            font-size: 14px;
+            cursor: pointer;
+
+
+        }
+
+        .click:hover {
+            color: #ee0c0c;
+
+        }
+
+        @media screen and (max-width : 792px) {
+            .verifymail {
+                flex-direction: column;
+                top: 0;
+                overflow: hidden;
+                width: 95%;
+
+            }
+
+        }
+
+        @media screen and (max-width : 535px) {
+            .verifymail {
+                flex-direction: column;
+                top: 0;
+                overflow: hidden;
+                width: 95%;
+                height: 90%;
+
+            }
+        }
+
+        @media screen and (max-width : 400px) {
+            .verifymail {
+                flex-direction: column;
+                top: 0;
+                overflow: hidden;
+                width: 95%;
+                height: 90%;
+
+            }
+
+            h2 {
+
+                font-size: 35px;
+
+            }
+
+            .info {
+                margin-top: 25px;
+                margin: 25px 10px 10px 10px;
+                font-size: 16px;
+            }
+
+            .info2 {
+
+                margin-top: 40px;
+                font-size: 15px;
+                margin: 60px 40px 10px 40px;
+
+            }
+        }
+
+    </style>
+
+
+</body>
+
+</html>

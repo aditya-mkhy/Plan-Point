@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Room {{map_data_room_number}}{% endblock titlename %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/rooms.css">
+{% endblock head %}
+
+{% block body %}
+
+<div class="room-short-view-container">
+    {% if Admin %}
+    {% if room_selection_show != "Yes" %}
+    <div class="room-short-view room-short-view-shade">
+        <a href="/addroom">
+            <h3>Add Room</h3>
+            <img class="short-view-add-room-icon" src="/static/img/addroom.png" alt="room">
+        </a>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    {% if short_view_data %}
+    {% for room in short_view_data %}
+    <div class="room-short-view room-short-view-shade  {{room_selection_show}}">
+        {% if room_selection_show == "Yes" %}
+        <i class='bx bx-plus-circle room-select-button' idnum="{{room.0}}" selected={{room.2}} onclick="select_button_cmd(this)"></i>
+        {% endif %}
+        <a href="?action=showroom&roomnum={{room.0}}" class="room-short-view-room-a">
+            <h3>Room : {{room.0}}</h3>
+            <p>Total Seats : {{room.1}}</p>
+        </a>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
+    <!-- Room_details_map_html -->
+    {% if room_map_data %}
+    <div class="room-map-cont">
+
+        <div class="map-blackboard">
+            <div class="map-blackboard-img-cont">
+                <div class="map-blackboard-img">
+                    <p>Black Board</p>
+                </div>
+            </div>
+            <div class="map-room-gate-cont-{{gateside}}">
+                <div class="map-room-gate-{{gateside}}">
+                    <p class="map-room-gate-label">Gate</p>
+                </div>
+                <div class="map-room-number">
+                    <h3>Room : {{map_data_room_number}}</h3>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="map-deskarea">
+            {% for row in room_map_data %}
+            <div class="map-room_rows">
+                {% for desk in row %}
+                <div class="map-desk">
+                    {% for seat in desk%}
+                    <div class="map-one_seat_div">
+                        <p class="map-rollnum">{{seat}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+    {% endif %}
+    <!-- end room maps -->
+</div>
+
+<script>
+    {% if scroll_page %}
+    const divscroll = document.getElementById("main-page-container");
+
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log("Page is loaded")
+        divscroll.scrollTo({
+            top: divscroll.scrollHeight,
+            behavior: 'smooth'
+        });
+
+    }, false);
+    {% endif %}
+
+    {% if room_selection_show %}
+    async function select_button_cmd(elmt) {
+        var selected_val = elmt.getAttribute("selected");
+        var idnum = elmt.getAttribute("idnum");
+        if (selected_val == "0") {
+            console.log("selected_the_value")
+
+            var st = await sendCommandToServer(idnum, "1");
+            console.log("stst==>", st)
+            if (st == 1) {
+                elmt.setAttribute("selected", "1");
+                elmt.classList.remove("bx-plus-circle");
+                elmt.classList.add("bx-minus-circle");
+                elmt.style.color = "orangered";
+                elmt.parentElement.style.backgroundColor = "#a3f787";
+            }
+
+            else {
+                console.log("Error in getting status...")
+            }
+
+
+        }
+
+        else {
+
+            var st = await sendCommandToServer(idnum, "0");
+            console.log("stst==>", st)
+            if (st == 1) {
+                console.log("deselected_the_value")
+                elmt.setAttribute("selected", "0");
+                elmt.classList.remove("bx-minus-circle");
+                elmt.classList.add("bx-plus-circle");
+                elmt.style.color = "black";
+                elmt.parentElement.style.backgroundColor = "#e3f9f9";
+            }
+
+            else {
+                console.log("Error in getting status...")
+            }
+        }
+    }
+
+    const selected_box = document.querySelectorAll('.room-select-button');
+    selected_box.forEach(elmt => {
+        if (elmt.getAttribute("selected") == "1") {
+            elmt.parentElement.style.backgroundColor = "#a3f787";
+            elmt.classList.remove("bx-plus-circle");
+            elmt.classList.add("bx-minus-circle");
+            elmt.style.color = "orangered";
+        }
+    });
+
+
+
+    async function sendCommandToServer(idnum, status) {
+        return await fetch(`${window.origin}/rooms?action=cmd&cmd=${idnum}&stat=${status}`, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'action': 'cmd',
+                'cmd': idnum,
+                'stat': status
+            }
+
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log('Data==>', data);
+            if ('stat' in data) {
+                if (data['stat'] == "1") {
+                    return 1;
+                }
+
+                else {
+                    return 0;
+                }
+
+            }
+            else {
+                return 0;
+            }
+        });
+    }
+
+    {% endif %}
+
+</script>
+{% endblock body %}

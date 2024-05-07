@@ -1,0 +1,412 @@
+{% extends 'base.html' %}
+
+{% block titlename %}+ Attendance date{% endblock titlename %}
+
+{% block body %}
+    <div class="main-cont-change">
+        <div class="init-details-form">
+
+            <h3> Lacture Info</h3>
+            <p id="msgp">Enter date and choose the subjects</p>
+
+
+            <form action="/plusdates" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="postaction" id="postaction" value="userdetails">
+
+                <div class="class-and-date-cont">
+
+                    <div class="date-container">
+
+                        <div class="input-contain input-contain-1">
+                            <input type="text" id="fname" name="classsem"  autocomplete="off" value="{{class}}"
+                                aria-labelledby="placeholder-fname">
+                            <label class="placeholder-text" for="fname" id="placeholder-fname">
+                                <div class="text">Class</div>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="input-contain">
+
+                        <input type="date" class="date-input" id="dobid" onchange="datechanged(this)" name="dateofclass" autocomplete="off" value="{{date}}"
+                            required>
+
+                        <label class="placeholder-text" for="dobid" id="placeholder-dobid">
+                            <div class="text">Date</div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="subjects-check-cont">
+                    {% if subjects %}
+                    {% for sub in  subjects%}
+                    <div class="one-sunject-cont">
+                        <h5>{{sub.0}}</h5>
+                        <input type="checkbox" name="{{sub.1}}" id="{{sub.1}}" {{sub.2}}>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+
+                <div class="next-button-cont">
+                    <input type="submit" class="next-button" value="Save">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Google Sans, Noto Sans Myanmar UI, arial, sans-serif;
+        }
+
+
+
+        .main-cont-change {
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .init-details-form {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgb(170, 167, 167);
+            width: 450px;
+            height: fit-content;
+            border-radius: 12px;
+            padding: 30px;
+            align-items: center;
+
+        }
+
+
+
+        .init-details-form h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .init-details-form p {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .init-details-form form {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .class-and-date-cont {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .date-container {
+            width: 100%;
+        }
+
+        .subjects-check-cont {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .one-sunject-cont {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 32px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid rgb(170, 167, 167);
+            margin-bottom: 10px;
+        }
+
+
+        .input-contain {
+            position: relative;
+            margin-top: 0px;
+        }
+
+        .input-contain-1 {
+            margin-top: 0px;
+        }
+
+        input,
+        .gender-input {
+            height: 42px;
+            width: 190px;
+            border: 1px solid rgb(180, 177, 177);
+            border-radius: 6px;
+            padding: 0px 12px;
+            background-color: inherit;
+        }
+
+
+
+        input:focus,
+        .gender-input:focus {
+            outline: none;
+            border: 2px solid #0065ff;
+        }
+
+        input:focus+.placeholder-text .text,
+        .gender-input:focus .placeholder-text .text,
+        :not(input[value=""])+.placeholder-text .text,
+        #dobid:valid+.placeholder-text .text {
+            background-color: #f8f8f8;
+            color: black;
+            transform: translate(0, -125%);
+            padding: 0px 4px;
+            margin-left: 10px;
+            font-size: 13px;
+        }
+
+
+        input:focus+.placeholder-text .text,
+        .gender-input:focus+.placeholder-text .text {
+            border-color: #0065ff;
+            color: #0065ff;
+            padding: 0px 4px;
+            margin-left: 10px;
+            font-size: 13px;
+        }
+
+        .placeholder-text {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: transparent;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .text {
+            padding: 0 8px;
+            /* transform: translate(0); */
+            color: rgb(54, 53, 53);
+            transition: transform 0.15s ease-out, font-size 0.15s ease-out, background-color 0.2s ease-out, color 0.15s ease-out;
+        }
+
+        input,
+        .placeholder-text,
+        .gender-input {
+            font-size: 18px;
+        }
+
+        .next-button-cont {
+            display: flex;
+            flex-direction: row-reverse;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .next-button {
+            width: 100%;
+            border-radius: 6px;
+            height: 38px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            background-color: #0065ff;
+            margin-bottom: 10px;
+        }
+
+        .next-button:focus {
+            outline: none;
+            border: none;
+        }
+
+
+        .date-input {
+            width: 170px;
+            cursor: pointer;
+        }
+
+        input[type=date]:required:invalid::-webkit-datetime-edit {
+            color: transparent;
+            background-color: transparent;
+
+        }
+
+        input[type=date]:focus::-webkit-datetime-edit {
+            color: black !important;
+        }
+
+        .alert.warning {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: left;
+            box-sizing: border-box;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            /* margin-top: 1rem; */
+            position: relative;
+            width: 340px;
+        }
+
+
+        .closebtn {
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            margin-right: -10px;
+            margin-top: -5px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s all ease;
+            z-index: 1;
+        }
+
+        .closebtn:hover {
+            color: rgb(255, 0, 0);
+        }
+
+
+        .one-sunject-cont h5 {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .one-sunject-cont input {
+            width: 18px;
+            margin-top: -12px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width : 470px) {
+
+
+            .main-cont-change {
+                justify-content: start;
+
+                width: 100%;
+                margin-top: 30px;
+                padding:12px;
+
+            }
+
+            .init-details-form {
+                border: none;
+                width: 100%;
+                border-radius: none;
+                padding: 20px;
+                align-items: center;
+
+
+            }
+        }
+
+
+        @media screen and (max-width : 425px) {
+
+            .init-details-form {
+                padding: 10px;
+                width: 100%;
+            }
+
+            form {
+                width: 100%;
+            }
+
+            .input-contain {
+                width: 100%;
+            }
+
+            input {
+                width: 100%;
+            }
+
+            .alert.warning {
+                width: 100%;
+            }
+
+
+            .date-container {
+                width: 100%;
+                margin-right: 10px;
+            }
+
+            .date-input {
+                width: 100%;
+                cursor: pointer;
+            }
+
+            .class-and-date-cont {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+
+        @media screen and (max-width : 350px) {
+            .class-and-date-cont {
+                flex-direction: column;
+            }
+
+            .date-container {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+
+    <script>
+
+        let input_element = document.querySelectorAll("input");
+        let ptag_msg = document.getElementById("msgp");
+
+        ptag_msg.className
+
+        function datechanged(elmnt){
+            console.log("date is changed..");
+            location.replace(`${window.origin}/plusdates?date=${elmnt.value}`);
+        }
+
+        input_element.forEach(elmt => {
+            elmt.addEventListener("keyup", () => {
+                elmt.setAttribute("value", elmt.value);
+            })
+        });
+
+
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+                div.style.opacity = "0";
+                ptag_msg.style.display = "block";
+
+            }
+        }
+    </script>
+{% endblock body %}

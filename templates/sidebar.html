@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>SideBar</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <img src="/static/img/logo.png" alt="">
+            </div>
+             <i class="bx bx-menu" id="btn"></i>
+        </div>
+
+        <ul>
+            <li>
+                <a href="#">
+                    <i class="bx bxs-grid-alt"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bx bxs-shopping-bag"></i>
+                    <span class="nav-item">Products</span>
+                </a>
+                <span class="tooltip">Products</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bx bx-list-check"></i>
+                    <span class="nav-item">Categories</span>
+                </a>
+                <span class="tooltip">Categories</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bx bxs-food-menu"></i>
+                    <span class="nav-item">Order</span>
+                </a>
+                <span class="tooltip">Order</span>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bx bx-body"></i>
+                    <span class="nav-item">Customer</span>
+                </a>
+                <span class="tooltip">Customer</span>
+            </li>
+        </ul>
+        <div class="user">
+            <img src="/static/img/adi.jpeg" alt="me" class="user-img">
+            <div>
+                <p class="bold">Aditya Mukhiya</p>
+                <p class="access-level">Admin (<a href="/logout">Logout</a>) </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+
+        <div class="container">
+            <h1>Code Commerse</h1>
+            <h1>E-Commerse</h1>
+        </div>
+    </div>
+
+    <script>
+        let btn = document.querySelector('#btn');
+        let sidebar = document.querySelector('.sidebar');
+
+        btn.onclick = function() {
+            sidebar.classList.toggle('active');
+        };
+
+        sidebar.classList.toggle('active');
+
+    </script>
+</body>
+
+</html>

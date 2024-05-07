@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Class {{map_data_room_number}}{% endblock titlename %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/seating.css">
+{% endblock head %}
+{% block body %}
+
+<div class="main-cont-change">
+
+    <button class="new-seating-plan-button" id="seating-plan-button" onclick="seating_plan_but_cmd()">
+        New Seating Plan
+    </button>
+
+    <section id="loadanimation">
+        <svg>
+            <filter id="gooey">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+                <feColorMatrix values="
+                  1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 20 -10"></feColorMatrix>
+            </filter>
+        </svg>
+
+        <div class="loader">
+            <span style="--i:1;"></span>
+            <span style="--i:2;"></span>
+            <span style="--i:3;"></span>
+            <span style="--i:4;"></span>
+            <span style="--i:5;"></span>
+            <span style="--i:6;"></span>
+            <span style="--i:7;"></span>
+            <span style="--i:8;"></span>
+            <span class="rotate" style="--j:0;"></span>
+            <span class="rotate" style="--j:1;"></span>
+            <span class="rotate" style="--j:2;"></span>
+            <span class="rotate" style="--j:3;"></span>
+            <span class="rotate" style="--j:4 ;"></span>
+
+        </div>
+    </section>
+
+    <div class="init-details-form" id="init-details-form-id">
+        <h3> New Plan Details</h3>
+        <form action="/plan" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="postaction" value="newplan">
+            <div class="plan-input-div plan-input-div-1">
+                <div class="plan-input plan-input-1">
+                    <input type="text" name="planid" id="planid" spellcheck="false" autocomplete="off" required
+                        value="">
+                    <label for="planid">Plan ID</label>
+                </div>
+
+                <div class="plan-input plan-input-2">
+                    <input type="text" name="planame" id="planame" spellcheck="false" autocomplete="off"
+                        value="">
+                    <label for="planame">Title</label>
+                </div>
+
+            </div>
+
+            <div class="plan-input-div plan-input-div-2">
+                <div class="plan-input plan-input-1 plan-date-div">
+                    <input type="date" name="plandate" class="plan-date" style="cursor :pointer;" id="plan-date" spellcheck="false"
+                        autocomplete="off" required>
+                    <label for="plan-date">Date</label>
+                </div>
+
+                <div class="plan-input plan-input-2 plan-shift-div">
+
+                    <select name="shift" id="shift" class="shift-input">
+                        <option value="Morning">Morning</option>
+                        <option value="Evening">Evening</option>
+                    </select>
+
+                    <label for="shift">Shift</label>
+
+                </div>
+
+
+            </div>
+
+            <div class="plan-input-div plan-input-div-2">
+                <input type="submit" value="Next" class="plan-input-submit">
+            </div>
+
+        </form>
+    </div>
+
+
+</div>
+
+
+<script>
+    const load_anime = document.getElementById("loadanimation");
+    load_anime.style.display = "none";
+
+    const seating_button = document.getElementById("seating-plan-button");
+    // seating_button.style.display = "none";
+
+    const planid_elmt = document.getElementById("planid");
+
+    const form_div = document.getElementById("init-details-form-id");
+    form_div.style.display = "none";
+
+
+
+    async function seating_plan_but_cmd() {
+        console.log("buton is clicked");
+        seating_button.style.display = "none";
+
+        form_div.style.display = "block";
+        load_anime.style.display = "block";
+
+        seating_button.innerText = "Calcuting...";
+        seating_button.onclick = "";
+
+
+        var plan_id = await sendCommandToServer('newplan');
+        console.log("===>st ===> ", plan_id);
+
+        if (plan_id != 0) {
+            planid_elmt.value = plan_id;
+            load_anime.style.display = "none";
+        }
+
+    }
+
+
+    async function sendCommandToServer(cmd) {
+        return await fetch(`${window.origin}/plan?action=cmd&cmd=${cmd}`, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'action': 'cmd',
+                'cmd': cmd,
+            }
+
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log('Data==>', data);
+            if ('stat' in data) {
+                if (data['stat'] == "1") {
+                    return data['plan_id'];
+                }
+
+                else {
+                    return 0;
+                }
+
+            }
+            else {
+                return 0;
+            }
+        });
+    }
+
+</script>
+{% endblock body %}

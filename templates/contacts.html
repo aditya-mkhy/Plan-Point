@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% block titlename %} Contact us {% endblock titlename %}
+
+{% block body %}
+    <div class="container-contact-us">
+      <div class="form-container-contact-us">
+        <h1 class="heading">Contact us</h1>
+        <form id="contact-form" method="post" action="/contacts">
+          {% csrf_token %}
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" value="{{user_name}}" required />
+
+          <label for="email">Email:</label>
+          {% if user_email%}
+          <input type="email" id="email" name="email" value="{{user_email}}" required  readonly/>
+          {% else %}
+          <input type="email" id="email" name="email" value="{{user_email}}" required/>
+          {% endif %}
+
+          <label for="phone">Phone Number:</label>
+          <input type="tel" id="phone" name="phone" value="{{phone_number}}"/>
+
+          <label for="message">Tell us about yourself:</label>
+          <textarea id="message" name="desc" rows="3" required></textarea>
+
+          <button type="submit" class="submit-btn">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container-contact-us {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        margin-top: 50px;
+        align-items: center;
+        height: fit-content;
+      }
+
+      .form-container-contact-us {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgb(170, 167, 167);
+        width: 400px;
+        border-radius: 12px;
+        padding: 30px;
+        align-items: center;
+        height: fit-content;
+        margin-bottom: 20px;
+
+      }
+
+      h1.heading {
+        font-size: 28px;
+        margin-bottom: 25px;
+      }
+
+      .input-contain {
+        position: relative;
+        margin-top: 30px;
+      }
+
+      .input-contain-1 {
+        margin-top: 0px;
+      }
+
+      input {
+        height: 42px;
+        width: 340px;
+        border: 1px solid rgb(180, 177, 177);
+        border-radius: 6px;
+        padding: 0px 12px;
+        background-color: inherit;
+        padding-right: 40px;
+      }
+
+      .input-contain i {
+        position: absolute;
+        margin-left: -35px;
+        font-size: 24px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      input:focus {
+        outline: none;
+        border: 2px solid #0065ff;
+      }
+
+      input:focus + .placeholder-text .text,
+      :not(input[value=""]) + .placeholder-text .text {
+        background-color: white;
+        color: black;
+        transform: translate(0, -125%);
+        padding: 0px 4px;
+        margin-left: 10px;
+        font-size: 13px;
+      }
+
+      input:focus + .placeholder-text .text {
+        border-color: #0065ff;
+        color: #0065ff;
+        padding: 0px 4px;
+        margin-left: 10px;
+        font-size: 13px;
+      }
+
+      .placeholder-text {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .text {
+        padding: 0 8px;
+        /* transform: translate(0); */
+        color: rgb(54, 53, 53);
+        transition: transform 0.15s ease-out, font-size 0.15s ease-out,
+          background-color 0.2s ease-out, color 0.15s ease-out;
+      }
+
+      input,
+      .placeholder-text {
+        font-size: 18px;
+      }
+
+
+      .submit-btn {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 32px;
+
+        border: none;
+        outline: none;
+        background: #3b87f9;
+        font-size: 1.3rem;
+        font-weight: 500;
+        /* width: 220px; */
+        letter-spacing: 1px;
+
+        padding: 10px 50px;
+        border-radius: 20px;
+        cursor: pointer;
+
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        text-shadow: 1px 1px 4px #02193b;
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:focus {
+        transition: background-color 600000s 0s, color 600000s 0s;
+      }
+
+      input[data-autocompleted] {
+        background-color: transparent !important;
+      }
+
+      #contact-form label {
+        display: block;
+        margin-bottom: 7px;
+      }
+
+      #contact-form input {
+        margin-bottom: 20px;
+      }
+
+      #contact-form textarea {
+        display: block;
+        width: 100%;
+        min-height: 80px;
+        max-height: 80px;
+        border: 1px solid rgb(180, 177, 177);
+        border-radius: 6px;
+        padding: 12px;
+        background-color: inherit;
+        resize: unset;
+        font-size: 18px;
+      }
+
+      @media screen and (max-width: 430px) {
+        .container-contact-us {
+          margin-top: 0px;
+          width: 100%;
+        }
+
+        .form-container-contact-us {
+          border: none;
+          width: 100%;
+          border-radius: none;
+          padding: 30px;
+          align-items: center;
+        }
+      }
+
+      @media screen and (max-width: 360px) {
+        .container-contact-us {
+          margin-top: 40px;
+          width: 100%;
+        }
+
+        .form-container-contact-us {
+          padding: 10px;
+          width: 100%;
+        }
+
+        form {
+          width: 100%;
+        }
+
+        .input-contain {
+          width: 100%;
+        }
+
+        input {
+          width: 100%;
+        }
+      }
+    </style>
+{% endblock body %}

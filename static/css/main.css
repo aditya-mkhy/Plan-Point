@@ -1,0 +1,489 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+.sidebar {
+    background-color: #12171e;
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    height: 100vh;
+    transition: all 0.5s ease;
+}
+
+
+.sidebar ::-webkit-scrollbar {
+    display: none;
+}
+
+.logo-top #btn {
+    color: white;
+    font-size: 2.2rem;
+    margin-left: 1px;
+    cursor: pointer;
+}
+
+.logo-top {
+    color: #fff;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    opacity: 1;
+    margin-left: 20px;
+    margin-top: 1rem;
+}
+
+.logo {
+    width: 14px;
+    margin-left: -12px;
+}
+
+.logo img {
+    display: none;
+    width: 180px;
+    height: 35px;
+}
+
+
+
+.menu {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    padding: 0.4rem 0.8rem;
+
+
+}
+
+.sidebar .menu ul {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s ease;
+    width: 100%;
+}
+
+.sidebar .menu ul li {
+    position: relative;
+    list-style-type: none;
+    height: 2.5rem;
+    margin: 0.8rem auto;
+    line-height: 40px;
+    height: 40px;
+    width: 100%;
+}
+
+.sidebar .menu ul li a {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.sidebar .menu ul li a:hover {
+    background-color: #fff;
+    color: #12171e;
+}
+
+.sidebar .menu ul li a i {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+
+.sidebar .menu .nav-item {
+    /*opacity: 0;*/
+    display: none;
+}
+
+
+
+.sidebar .menu ul li .tooltip {
+    position: absolute;
+    margin-left: 75px;
+    background-color: #f5f5f5;
+    top: 10%;
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.8);
+    border-radius: 0.6rem;
+    pointer-events: none;
+    padding: .4rem 1.2rem;
+    line-height: 1.8rem;
+    z-index: 20;
+    opacity: 0;
+    width: max-content;
+}
+
+.sidebar .menu ul li:hover .tooltip {
+    opacity: 1;
+}
+
+
+.user {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+    transition: all 0.5s ease;
+    background-color: #0d1116;
+
+}
+
+.user-icon {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 60px;
+    padding: 5px 0px 8px 10px;
+}
+
+.user-info {
+    height: 100%;
+    word-wrap: none;
+}
+
+.user a {
+    text-decoration: none;
+    color: #0065ff;
+}
+
+.sidebar .user .user-info p {
+    display: none;
+}
+
+
+.profile-pic {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-left: -10px;
+    transition: all 0.5s ease;
+}
+
+.profile-pic input {
+    display: none;
+}
+
+
+.user-img {
+    position: absolute;
+    object-fit: cover;
+    width: 45px;
+    height: 45px;
+    border-radius: 12%;
+    opacity: 1;
+    border: 1px solid #908f8f;
+    /*transition: all 0.5s ease;*/
+}
+
+.sidebar .user .user-icon .profile-pic .user-img {
+    border-radius: 100%;
+    margin-left: 15px;
+}
+
+.profile-pic .-label {
+    cursor: pointer;
+    height: 45px;
+    width: 45px;
+    margin-left: 15px;
+    font-size: 1px;
+}
+
+.profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 0;
+    border-radius: 12%;
+    font-size: 11px;
+
+}
+
+.profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+}
+
+.log-out-icon {
+    width: 100%;
+    position: relative;
+    color: #b9b5b5;
+    font-size: 23px;
+    right: 0;
+    margin-top: 18px;
+    margin-right: 5px;
+    display: none;
+}
+
+
+.access-level {
+    margin-left: 13px;
+    color: #b69e9e;
+    font-size: 0.8rem;
+}
+
+.bold {
+    color: #fff;
+    font-weight: 600;
+    margin-left: 12px;
+}
+
+.main {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+
+
+.body-container {
+    /* display: flex; */
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+    background: #f8f8f8;
+}
+
+/* horizontal csss ...................... ----------------*/
+
+.container.horizontal {
+    flex-direction: column;
+}
+
+.sidebar.horizontal {
+    flex-direction: row;
+    height: 45px;
+    width: 100%;
+}
+
+.sidebar.horizontal .logo-top {
+    height: 100%;
+    width: 60px;
+    margin-right: 20px;
+    align-items: center;
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0rem;
+}
+
+.sidebar.horizontal .logo-top .logo {
+    display: none;
+}
+
+.sidebar.horizontal .logo-top #btn {
+    color: white;
+    margin-left: 0.6rem;
+    margin-top: 0rem;
+    font-size: 2.1rem;
+}
+
+
+.sidebar.horizontal .menu {
+    flex-grow: 1;
+    height: 45px;
+    overflow: auto;
+    padding: 0rem 0rem;
+}
+
+.sidebar.horizontal .menu ul {
+    flex-direction: row;
+    width: 100%;
+}
+
+
+.sidebar.horizontal .menu ul li {
+    width: max-content;
+    margin-top: -3px;
+    line-height: 0px;
+    font-size: 1.1rem;
+}
+
+.sidebar.horizontal .menu ul li a {
+    border-radius: 0rem;
+    background-color: inherit;
+
+}
+
+.sidebar.horizontal .menu ul li a:hover {
+    background-color: inherit;
+    color: #fff;
+    font-size: 24px;
+}
+
+.sidebar.horizontal .menu ul li a i {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+
+.sidebar.horizontal .menu .nav-item {
+    /* opacity: 0; */
+    display: none;
+}
+
+.sidebar.horizontal .menu ul li .tooltip {
+    z-index: 80;
+    margin-left: 0px;
+    margin-top: 30px;
+    left: 10%;
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+    border-radius: 0.6rem;
+    padding: .4rem 1.2rem;
+    line-height: 1.8rem;
+    /* opacity: 1; */
+    width: max-content;
+    /* /* display: none* */
+}
+
+.sidebar.horizontal .menu ul li:hover .tooltip {
+    opacity: 0;
+}
+
+.sidebar.horizontal .user {
+    width: 48px;
+    height: 45px;
+}
+
+
+.sidebar.horizontal .user .user-icon {
+    height: 45px;
+    width: 48px;
+    padding: 0px 0px 0px 10px;
+}
+
+.sidebar.horizontal .user .user-icon .user-info {
+    word-wrap: none;
+    height: 0px;
+}
+
+.sidebar.horizontal .user a {
+    text-decoration: none;
+}
+
+.sidebar.horizontal .user p {
+    display: none;
+}
+
+.sidebar.horizontal .user .user-icon .profile-pic {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+    margin-left: -4px;
+
+}
+
+.sidebar.horizontal .user .user-icon .profile-pic input {
+    display: none;
+}
+
+.sidebar.horizontal .user .user-icon .profile-pic .user-img {
+    width: 38px;
+    height: 38px;
+    margin-left: 0px;
+}
+
+
+.sidebar.horizontal .user .user-icon .profile-pic .-label {
+    height: 35px;
+    width: 35px;
+    margin-left: 0px;
+    font-size: 1px;
+}
+
+.sidebar.horizontal .user .user-icon .profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 12%;
+    font-size: 10px;
+}
+
+/* #.... Adctive .............cs.............  */
+
+.sidebar.active {
+    width: 250px;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active .logo-top .logo {
+    width: 190px;
+}
+
+.sidebar.active .logo-top #btn {
+    left: 93%;
+    font-size: 2.2rem;
+    margin-left: 10px;
+
+}
+
+.sidebar.active .logo-top .logo img {
+    display: block;
+}
+
+.sidebar.active .menu .nav-item {
+    display: block;
+}
+
+.sidebar.active .menu ul li .tooltip {
+    display: none;
+}
+
+
+.sidebar.active .user .user-info p {
+    display: block;
+}
+
+.sidebar.active .user .user-icon .profile-pic .user-img {
+    border-radius: 12%;
+}
+
+.sidebar.active .user .log-out-icon {
+    display: block;
+}
+
+.sidebar.active~.main {
+        width: calc(100% - 250px);
+    }
+
+@media screen and (max-width : 599px) {
+    .sidebar.active {
+        position: absolute;
+        z-index: 2000;
+        opacity: 0.98;
+    }
+}

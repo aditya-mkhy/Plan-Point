@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Add Room {% endblock titlename %}
+
+{% block body %}
+<div class="body-container">
+    <div class="room-form-container box-shade" id="fmc">
+        <h2 class="roomdt">+ Room Details</h2>
+
+        <form action="#" method="post">
+            {% csrf_token %}
+
+            <input type="hidden" id="rowcount"  name="rowcount" value="1">
+            <label for="roomnum">Room Number : </label>
+            <input type="number" class="roomnum same-width-room" id="roomnum" name="roomnum">
+
+            <label for="totalseats" class="totalseatslab">Gate Side : </label>
+            <select name="gateside" id="totalseats" class="totalseats">
+                <option value="right">Right</option>
+                <option value="left">Left</option>
+            </select>
+            <br>
+
+            <h4 class="form-row-head">Row Details : </h4>
+
+            <div class="row-container" id="row-container-detail">
+                <label for="desks">1) Desks : </label>
+                <input type="number" class="desks same-width-room-cap " id="desks" name="deskinrow1">
+
+                <label for="capacity" class="capacitylab">Capacity : </label>
+                <input type="number" class="capacity same-width-room-cap " id="capacity" name="capofrow1">
+            </div>
+
+            <br>
+
+            <label for="extrainfo">Room Info : </label>
+            <input type="text" class="extrainfo" id="extrainfo" name="extrainfo">
+
+            <input type="submit" class="room-savebut" value="Save">
+
+        </form>
+
+        <button onclick="addRowField()" class="addRowFieldBtn">Add Row +</button>
+
+    </div>
+</div>
+<script>
+    const container_room = document.getElementById('row-container-detail');
+    const rowcountelemt = document.getElementById('rowcount');
+    var rowCount = 1;
+
+    function addRowField() {
+
+        rowCount = rowCount + 1;
+        rowcountelemt.value = rowCount;
+        var br = document.createElement("br");
+        container_room.appendChild(br);
+
+        var desklabel = document.createElement("label");
+        desklabel.setAttribute("for", "desks");
+        desklabel.innerHTML = rowCount + ") Desks : ";
+        container_room.appendChild(desklabel);
+
+        var deskinput = document.createElement("input");
+        deskinput.setAttribute("type", "number");
+        deskinput.setAttribute("id", "desks");
+        deskinput.setAttribute("class", "desks same-width-room-cap ");
+        deskinput.setAttribute("name", "deskinrow"+rowCount );
+        container_room.appendChild(deskinput);
+
+        var caplabel = document.createElement("label");
+        caplabel.setAttribute("for", "capacity");
+        caplabel.setAttribute("class", "capacitylab");
+        caplabel.innerHTML = "&nbsp;Capacity  : ";
+        container_room.appendChild(caplabel);
+
+        var capinput = document.createElement("input");
+        capinput.setAttribute("type", "number");
+        capinput.setAttribute("id", "capacity");
+        capinput.setAttribute("class", "capacity same-width-room-cap ");
+        capinput.setAttribute("name", "capofrow"+rowCount);
+        container_room.appendChild(capinput);
+    }
+
+</script>
+
+<style>
+    .body-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        align-content: center;
+
+    }
+    .room-form-container {
+        display: flex;
+        flex-direction: column;
+        width: 450px;
+        height: fit-content;
+        border-radius: 6px;
+        background-color: #e5e2e2;
+        padding: 20px 30px;
+        margin: 30px;
+    }
+
+    .roomnum,
+    .totalseats {
+        margin-left: 2px;
+    }
+
+    .totalseatslab {
+        margin-left: 20px;
+    }
+
+    .form-row-head {
+        margin-top: 25px;
+        margin-bottom: 22px;
+        text-decoration: underline;
+    }
+
+    .row-container {
+        background-color: #d2cece;
+        padding: 5px 0px 5px 0px;
+        border-radius: 5px;
+        margin-top: -16px;
+        padding: 10px 10px 0px 10px;
+    }
+
+
+
+
+    .row-container input {
+        width: 50px;
+    }
+
+    .capacitylab {
+        margin-left: 30px;
+    }
+
+    .row-container input {
+        margin: 3px 1px 15px 1px;
+    }
+
+    .roomdt {
+        text-decoration: underline;
+        text-align: center;
+        margin-top: -8px;
+        margin-bottom: 20px;
+    }
+
+    .same-width-room {
+        width: 50px;
+    }
+
+    .addRowFieldBtn {
+        position: absolute;
+        width: 85px;
+        margin-top: 90px;
+        margin-left: 120px;
+
+    }
+
+    .room-savebut {
+        width: 86px;
+    }
+
+    .extrainfo {
+        width: 50%;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+
+    .box-shade {
+        box-shadow:
+            0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+            0 12.5px 10px rgba(0, 0, 0, 0.06),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+            0 100px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Firefox
+        input[type=number] {
+            -moz-appearance: textfield;
+        } */
+</style>
+
+{% endblock body %}

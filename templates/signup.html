@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="icon" href="/static/img/desk.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+
+</head>
+
+<body>
+    <img src="/static/img/loginback.jpg" alt="loading.mp4" id="bgVideo">
+
+
+
+    <div class="form-container sign-up-form">
+        <div class="form-box sign-up-box">
+            <img class="logo" src="/static/img/avatar.png" alt="">
+            {% if message %}
+            {% for messag in message %}
+
+            <div class="alert warning">
+                <span class="closebtn">&times;</span>
+                <strong>{{prefix}}</strong> {{messag}}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="header">
+                <h2>SignUp </h2>
+            </div>
+            <form class="form" method="post" action="/signup">
+                {% csrf_token %}
+
+                <div class="field">
+                    <i class="uil uil-at"></i>
+                    <input type="email" name="email" placeholder="Email ID" value="{{email}}" required>
+                </div>
+
+                <div class="field">
+                    <i class="uil uil-user"></i>
+                    <input type="text" placeholder="Full name" name="full_name" value="{{full_name}}" spellcheck="false"
+                        required>
+                </div>
+
+                <div class="field">
+                    <i class="uil uil-phone"></i>
+                    <input type="tel" placeholder="Phone number" name="phone_no" value="{{phone_no}}" spellcheck="false"
+                        maxlength="10" minlength="10" required>
+                </div>
+
+                <div class="field">
+                    <i class="uil-lock-alt"></i>
+                    <input class="password-input" type="password" name="password1" value="{{password1}}"
+                        placeholder="Password" spellcheck="false" required>
+                    <div class="eye-btn"> <i class="uil uil-eye-slash"></i></div>
+                </div>
+                <input type="hidden" name="prev_video" value="{{video_file}}" />
+
+                <div class="field">
+                    <i class="uil-lock-access"></i>
+                    <input class="password-input-2" type="password" name="password2" value="{{password2}}"
+                        placeholder="Confirm password" spellcheck="false" required>
+                    <div class="eye-btn-2"> <i class="uil uil-eye-slash"></i></div>
+                </div>
+
+                <input class="submit-btn" type="submit" value="Sign Up">
+
+                <div class="signUp" style="margin-top: 30px;">
+
+                    <a href="/login" style="color: rgb(255, 136, 0);font-size: 15px;"> Login</a>&nbspor&nbsp<a
+                        href="/contacts" style="color:blue;font-size: 0.9em; font-style: italic; ">Contact
+                        Us </a>
+                </div>
+
+
+
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        //input fields focous effects
+        const textInputs = document.querySelectorAll("input");
+
+        textInputs.forEach(textInput => {
+            textInput.addEventListener("focus", () => {
+                let parent = textInput.parentNode;
+                parent.classList.add("active");
+            })
+        });
+
+        textInputs.forEach(textInput => {
+            textInput.addEventListener("blur", () => {
+                let parent = textInput.parentNode;
+                parent.classList.remove("active");
+            })
+        });
+
+        //password show/hide
+        const passwordInput = document.querySelector(".password-input");
+        const eyeBtn = document.querySelector(".eye-btn");
+
+        eyeBtn.addEventListener("click", () => {
+            if (passwordInput.type == "password") {
+                passwordInput.type = "text";
+                eyeBtn.innerHTML = "<i class='uil uil-eye'>";
+            }
+
+            else {
+                passwordInput.type = "password";
+                eyeBtn.innerHTML = "<i class='uil uil-eye-slash'>";
+            }
+        })
+
+        //password show/hide
+        const passwordInput2 = document.querySelector(".password-input-2");
+        const eyeBtn2 = document.querySelector(".eye-btn-2");
+
+        eyeBtn2.addEventListener("click", () => {
+            if (passwordInput2.type == "password") {
+                passwordInput2.type = "text";
+                eyeBtn2.innerHTML = "<i class='uil uil-eye'>";
+            }
+
+            else {
+                passwordInput2.type = "password";
+                eyeBtn2.innerHTML = "<i class='uil uil-eye-slash'>";
+            }
+        })
+
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.opacity = "0";
+                setTimeout(function () { div.style.display = "none"; }, 600);
+            }
+        }
+
+    </script>
+
+    <style>
+        .alert.warning {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: left;
+            box-sizing: border-box;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            margin-top: 1rem;
+            width: 330px;
+            margin-top: -5px;
+            margin-left: -29px;
+            position: fixed;
+        }
+
+        .closebtn {
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: rgb(255, 0, 0);
+        }
+
+        #bgVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+
+            width: auto;
+            height: auto;
+
+
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+
+            /* Stop selection of text */
+
+            user-select: none;
+            /* supported by Chrome and Opera */
+            -webkit-user-select: none;
+            /* Safari */
+            -khtml-user-select: none;
+            /* Konqueror HTML */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge */
+        }
+
+        body {
+            min-height: 100vh;
+            background: rgb(48, 46, 46);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+
+        }
+
+        .form-box {
+            z-index: 999;
+
+            width: 350px;
+            padding: 50px 40px;
+            overflow: hidden;
+            border-radius: 13px;
+            background-color: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px #fff;
+        }
+
+        .form-box h2 {
+            font-size: 2em;
+            margin-bottom: 40px;
+            font-weight: 700;
+            color: #fff;
+
+
+
+
+        }
+
+        .header {
+            text-align: center;
+
+
+        }
+
+        .form-box .field {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #8d3515;
+            margin-bottom: 25px;
+
+
+
+        }
+
+        .form-box .field.active {
+            border-bottom: 2px solid #0065ff;
+            transition: 0.3s ease;
+
+        }
+
+        .form-box .field input {
+            border: none;
+            outline: none;
+            background: none;
+            width: 100%;
+            font-size: 1em;
+            padding-bottom: 5px;
+            color: rgb(255, 255, 255);
+        }
+
+        .form-box .field i {
+            color: #ff652f;
+            font-size: 1.3em;
+            margin-right: 10px;
+            padding-bottom: 5px;
+        }
+
+        .form-box .field.active i {
+            color: #0065ff;
+            transition: 0.3s ease;
+
+        }
+
+        ::placeholder {
+            color: #ff652f;
+            font-size: 0.85em;
+        }
+
+        .eye-btn {
+            cursor: pointer;
+        }
+
+        .eye-btn-2 {
+            cursor: pointer;
+        }
+
+        .eye-btn i:hover {
+            color: #0065ff;
+            transition: 0.3s ease;
+
+        }
+
+        .eye-btn-2 i:hover {
+            color: #0065ff;
+            transition: 0.3s ease;
+
+        }
+
+        .forgot-link {
+            text-align: right;
+            transform: translateY(-10px);
+
+        }
+
+        .forgot-link a {
+            color: #0065ff;
+            font-size: 0.9em;
+            text-decoration: none;
+
+        }
+
+        .submit-btn {
+            background: #0065ff;
+            color: #fff;
+            border: none;
+            outline: none;
+            width: 220px;
+            padding: 10px 50px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-top: 5px;
+            cursor: pointer;
+
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            align-items: center;
+
+
+        }
+
+        .signUp {
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+        .logo {
+            position: absolute;
+            left: calc(50% - 50px);
+            top: calc(50% - 330px);
+            background: rgba(255, 255, 255, 255);
+
+            width: 100px;
+            background-color: rgba(255, 255, 255, 255);
+            border-radius: 50%;
+            color: #fff;
+
+
+
+        }
+
+
+        /* .sign-in-form .sign-in-box{
+            transform: translateY(100%);
+        } */
+
+        @media screen and (max-width : 380px) {
+            .form-container {
+                flex-direction: column;
+                top: 0;
+                overflow: hidden;
+                width: 100%;
+
+            }
+
+            .form-box {
+                box-shadow: none;
+                width: 100%;
+                width: 100%;
+                padding: 50px 25px 50px 25px;
+                background-color: transparent;
+            }
+
+            .logo {
+                top: calc(50% - 310px);
+
+
+            }
+
+            .alert.warning {
+                margin-left: -27px;
+                width: 96%;
+            }
+
+            .submit-btn {
+                width: 80%;
+                padding: 10px 0px;
+            }
+
+
+        }
+
+        /* 580 */
+
+        @media screen and (max-width : 220px) {
+            .form-container {
+                font-size: 0.9rem;
+            }
+
+            .form-box {
+                width: 100%;
+                padding: 20px 10px 20px 10px;
+            }
+
+
+            .alert.warning {
+                margin-left: -30px;
+                width: 96%;
+            }
+
+
+        }
+
+        @media screen and (max-height : 690px) {
+            .form-box h2 {
+                display: none;
+            }
+
+            .logo {
+                top: calc(50% - 310px);
+            }
+
+        }
+
+        /* Change autocomplete styles in WebKit */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            border: none;
+            -webkit-text-fill-color: rgb(255, 255, 200);
+            -webkit-box-shadow: none;
+            font-size: 1em;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    </style>
+
+</body>
+
+</html>

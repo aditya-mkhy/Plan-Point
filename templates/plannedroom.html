@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Room {{map_data_room_number}}{% endblock titlename %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/css/rooms.css">
+{% endblock head %}
+
+{% block body %}
+
+<div class="planned-rooms-cont">
+    <!-- Room_details_map_html -->
+    {% if seating_argmnt_data %}
+    {% for room_num, room_data in seating_argmnt_data.items %}
+    <div class="room-planned-cont-one">
+        <div class="room-map-cont">
+
+            <div class="map-blackboard">
+                <div class="map-blackboard-img-cont">
+                    <div class="map-blackboard-img">
+                        <p>Black Board</p>
+                    </div>
+                </div>
+                <div class="map-room-gate-cont-{{room_data.0.0}}">
+                    <div class="map-room-gate-{{room_data.0.0}}">
+                        <p class="map-room-gate-label">Gate</p>
+                    </div>
+                    <div class="map-room-number">
+                        <h3>Room : {{room_num}}</h3>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="map-deskarea">
+                {% for row in room_data.1 %}
+                <div class="map-room_rows">
+                    {% for desk in row %}
+                    <div class="map-desk">
+                        {% for seat in desk%}
+                        <div class="map-one_seat_div">
+                            <p class="map-rollnum">{{seat}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!-- end room maps -->
+</div>
+<script>
+
+
+</script>
+{% endblock body %}

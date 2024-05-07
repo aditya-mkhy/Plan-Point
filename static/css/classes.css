@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* body {
+    background-color: #f8f8f8;
+} */
+
+
+.body-container {
+    background: #f8f8f8;
+}
+
+.body-container-dark {
+    background: #161b1d;
+}
+
+.batch-short-view-container {
+    background-color: #f8f8f8;
+    display: flex;
+    flex-wrap: wrap;
+    /* height: 100vh; */
+}
+
+.batch-short-view-container-dark {
+    background-color: #161b1d;
+}
+
+.batch-short-view-container .batch-short-view {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+
+    height: 105px;
+    width: 210px;
+
+    background: #fcf2c5;
+    border-radius: 10px;
+    margin: 20px 25px 20px 25px;
+    text-decoration: none;
+    transition: all ease 0.3s;
+}
+
+.batch-short-view-container-dark .batch-short-view {
+    background-color: #617073;
+}
+
+.batch-short-view-shade {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.batch-short-view-container-dark .batch-short-view-shade {
+    box-shadow: 3px 8px 13px 3px rgba(0, 0, 0, 1);
+}
+
+.batch-short-view-shade:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.25);
+}
+
+.batch-short-view-container-dark .batch-short-view-shade:hover {
+    box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 1);
+}
+
+.batch-short-view .bodyherif {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+
+}
+
+.batch-head-div {
+    display: flex;
+    /* background-color: #949491; */
+    justify-content: center;
+}
+
+.batch-info-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 45px;
+    margin-top: -10px;
+    /* justify-content: space-between; */
+
+}
+
+.batch-select-button {
+    position: absolute;
+    margin-left: 160px;
+    margin-top: 8px;
+    font-size: 33px;
+    cursor: cell;
+    /* background-color: aqua; */
+}
+
+.batch-selection-off .batch-select-button {
+    display: none;
+}
+
+.batch-info-div-add {
+    justify-content: center;
+    color: #100f0f;
+}
+
+.batch-short-view-container-dark .batch-info-div-add {
+    color: #e9e3e3;
+}
+
+.batch-info-div-add .bxs-group {
+    font-size: 50px;
+}
+
+.batch-info-div-add .bx-plus-medical {
+    font-size: 20px;
+    margin-top: 18px;
+}
+
+.batch-info-left {
+    display: flex;
+    flex-direction: column;
+    padding: 1px 15px 1px 15px;
+}
+
+.batch-info-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 10px;
+    width: 60px;
+    height: 40px;
+}
+
+.batch-info-right i {
+    font-size: 27px;
+    cursor: pointer;
+    transition: all 0.5 ease;
+
+}
+
+.batch-selection-on .batch-info-right i {
+    display: none;
+}
+
+.batch-info-right i:hover {
+    color: blue;
+    font-size: 30px;
+}
+
+.batch-short-view-container-dark .batch-info-right i:hover {
+    color: rgb(243, 243, 247);
+    font-size: 30px;
+}
+
+.batch-info-left p {
+    text-align: right;
+    color: black;
+}
+
+.batch-short-view-container-dark .batch-info-left p {
+    text-align: right;
+    color: rgb(222, 222, 222);
+}
+
+.batch-short-view .bodyherif h3 {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.list-view-batch {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(30, 30, 30);
+    background-color: #f6edc7;
+    margin: 20px;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.batch-short-view-container-dark .list-view-batch {
+    background-color: #949491;
+    border-color: rgb(216, 215, 215);
+}
+
+
+.batch-detail-table {
+    background-color: #f1e099;
+}
+
+.batch-short-view-container-dark .batch-detail-table {
+    background-color: #c6c3b5;
+}
+
+.list-view-batch-details {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.batch-short-view-container .table-heading {
+    background-color: #ece3bb;
+}
+
+.batch-short-view-container-dark .table-heading {
+    background-color: #908e85;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    text-align: left;
+    border-collapse: collapse;
+    padding: 3px 5px;
+}
+
+@media screen and (max-width : 480px) {
+    .batch-short-view {
+    height: 40px;
+    width: 180px;
+    margin: 20px 25px 20px 25px;
+    text-decoration: none;
+    transition: all ease 0.3s;
+}
+
+}

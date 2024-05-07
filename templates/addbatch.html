@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+
+{% block titlename %} Add Class {{map_data_room_number}}{% endblock titlename %}
+
+{% block body %}
+
+<div class="batch-main-container">
+
+    <div class="batch-form-container">
+
+        <form class="batch-form" action="/addbatch" method="post">
+            <input type="hidden" name="totalrecords" id="totalrecords" value="1">
+            {% csrf_token %}
+            <div class="batch-info">
+                <div class="batch-input batch-input-1">
+                    <input type="text" name="batchid" id="batchid" spellcheck="false" autocomplete="off" required
+                        value="">
+                    <label for="batchid">Batch ID</label>
+                </div>
+
+                <div class="batch-input batch-input-2">
+                    <input type="text" name="course" id="course" spellcheck="false" autocomplete="off" required
+                        value="">
+                    <label for="course">Course</label>
+                </div>
+
+                <div class="batch-input batch-input-3">
+                    <input type="text" name="semester" id="semester" spellcheck="false" autocomplete="off" required
+                        value="">
+                    <label for="semester">Semester</label>
+                </div>
+
+            </div>
+
+            <div class="students-data-cell" id="students-data-cell-id">
+
+                <div class="one-record one-record-heading">
+                    <input type="text" class="one-rollnum" id="onerollnum" placeholder="Roll Number" readonly>
+                    <input type="text" class="one-st-name"  id="one-st-name" placeholder="Name" readonly>
+                    <input type="email" class="one-st-email"  id="one-st-email" placeholder="E-mail" readonly>
+                </div>
+                <div class="one-record">
+
+                    <input type="text" class="one-rollnum" name="onerollnum1" id="onerollnum1"
+                        onfocus="addStudnetsField(this)" cellnum="1">
+                    <input type="text" class="one-st-name" name="onestname1" id="one-st-name1"
+                        onfocus="addStudnetsField(this)" cellnum="1">
+                    <input type="email" class="one-st-email" name="onemail1" id="one-st-email1"
+                        onfocus="addStudnetsField(this)" cellnum="1">
+                </div>
+
+            </div>
+
+            <div class="batch-save-but">
+                <input class="batch-form-submit" type="submit" value="Save">
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .body-container {
+        background: rgb(51, 49, 49);
+    }
+
+    .batch-main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .batch-form-container {
+        display: flex;
+        flex-wrap: wrap;
+        border: 2px solid #0065ff;
+        border-radius: 8px;
+        margin: 40px 20px 20px 20px;
+
+        padding: 10px;
+        width: 750px;
+    }
+
+    .batch-form-container .batch-form {
+        /* background-color: chartreuse; */
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+    }
+
+    .batch-info {
+        display: flex;
+        flex-direction: row;
+        padding: 25px 20px 20px 5px;
+        width: 100%;
+        /* background-color: #ff652f; */
+    }
+
+    .batch-info .batch-input {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center;
+            align-items: center; */
+        margin-bottom: 20px;
+        border-bottom: 2px solid rgb(235, 234, 234);
+    }
+
+    .batch-info .batch-input input {
+        padding: 0px 0px;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        margin-bottom: 0px;
+        border: none;
+        width: 100%;
+        padding-bottom: 1px;
+        border-bottom: none;
+        outline: none;
+        background-color: transparent;
+        color: rgb(255, 255, 255);
+
+    }
+
+    .batch-info .batch-input label {
+        position: absolute;
+
+        padding: 0px 0px;
+        padding-bottom: 10px;
+        font-size: 1rem;
+        pointer-events: none;
+        transition: .3s ease-out;
+        color: #fff;
+    }
+
+    .batch-info .batch-input-1 {
+        margin-right: 20px;
+    }
+
+    .batch-info .batch-input-2 {
+        margin-right: 20px;
+    }
+
+    .batch-info .batch-input input:focus+label,
+    .batch-info .batch-input input:valid+label {
+        transform: translateY(-20px);
+        color: #0065ff;
+        font-size: .9rem;
+    }
+
+    .students-data-cell {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        width: 100%;
+        height: 100%;
+        border: 2px solid rgb(234, 179, 40);
+        border-radius: 5px;
+    }
+
+    .one-record {
+        display: flex;
+    }
+
+
+    .one-record input {
+        background-color: rgb(47, 46, 46);
+        font-size: 18px;
+        color: white;
+        border: 1px solid;
+        border-style: solid;
+        border-color: rgb(234, 179, 40);
+        padding: 2px 5px 2px 5px;
+        outline: none;
+        /* margin: 5px 10px 5px 0px; */
+    }
+
+    .one-record-heading input {
+        background-color: rgb(58, 57, 57);
+    }
+
+    .one-record input:focus {
+        background-color: rgb(29, 28, 28);
+    }
+
+    .one-rollnum {
+        width: 140px;
+
+    }
+
+    .one-st-name {
+        width: 100%;
+    }
+
+    .one-st-email {
+        width: 100%;
+    }
+
+    .batch-save-but {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .batch-form-submit {
+        margin-right: 20px;
+        margin-top: 10px;
+        border: none;
+        background: rgb(59, 59, 243);
+        color: #f1efef;
+        padding: 8px 40px;
+        border-radius: 18px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+
+    const studentcont = document.getElementById('students-data-cell-id');
+    const totalrecords = document.getElementById('totalrecords');
+    var onCellNum = 1;
+
+
+    function addStudnetsField(elemnt) {
+        var totalCell = studentcont.children.length;
+        console.log("Total cell==>", totalCell);
+        var onCell = parseInt(elemnt.getAttribute("cellnum"));
+        console.log("cell==>", onCell);
+
+        totalCell = totalCell - 1;
+
+        if (totalCell == onCell) {
+            add_students();
+            var getrollemt = document.getElementById("onerollnum" + (onCell - 1));
+            var addrollemt = document.getElementById("onerollnum" + (onCell));
+            console.log("getrollem==>", getrollemt);
+            console.log("addrollemt==>", addrollemt);
+
+            if (getrollemt != null) {
+                addrollemt.value = getNextRollnum(getrollemt.value);
+            }
+            else {
+                console.log("Null is preesent");
+            }
+        }
+        else {
+            console.log("Not equal");
+        }
+    }
+
+
+    function getNextRollnum(rollnum) {
+        if (rollnum != '') {
+            var batch = rollnum.slice(0, 4);
+            var num = rollnum.slice(4);
+            var next_num = (parseInt(num) + 1).toString();
+            var f_next_num = "000".slice(next_num.length)
+            return batch + f_next_num + next_num;
+        }
+
+        else {
+            console.log("null is present");
+            return "";
+        }
+    }
+
+    function add_students(rt) {
+
+        onCellNum = onCellNum + 1;
+        totalrecords.value = onCellNum;
+
+        var record_cont = document.createElement("div");
+        record_cont.setAttribute("class", "one-record");
+        studentcont.appendChild(record_cont);
+
+        var rollnum = document.createElement("input");
+        rollnum.setAttribute("type", "text");
+        rollnum.setAttribute("id", "onerollnum" + onCellNum);
+        rollnum.setAttribute("class", "one-rollnum");
+        rollnum.setAttribute("name", "onerollnum" + onCellNum);
+        rollnum.setAttribute("onfocus", "addStudnetsField(this)");
+        rollnum.setAttribute("cellnum", onCellNum);
+        record_cont.appendChild(rollnum);
+
+
+        var stname = document.createElement("input");
+        stname.setAttribute("type", "text");
+        stname.setAttribute("id", "one-st-name" + onCellNum);
+        stname.setAttribute("class", "one-st-name");
+        stname.setAttribute("name", "onestname" + onCellNum);
+        stname.setAttribute("onfocus", "addStudnetsField(this)");
+        stname.setAttribute("cellnum", onCellNum);
+        record_cont.appendChild(stname);
+
+        var stmail = document.createElement("input");
+        stmail.setAttribute("type", "text");
+        stmail.setAttribute("id", "one-st-email" + onCellNum);
+        stmail.setAttribute("class", "one-st-email");
+        stmail.setAttribute("name", "onemail" + onCellNum);
+        stmail.setAttribute("onfocus", "addStudnetsField(this)");
+        stmail.setAttribute("cellnum", onCellNum);
+        record_cont.appendChild(stmail);
+
+    }
+</script>
+{% endblock body %}
