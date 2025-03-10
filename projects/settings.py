@@ -144,6 +144,6 @@ MEDIA_URL = '/media/'
 
 APP_PASSWD = "" # gmail app password
 APP_EMAIL = "" # email id 
-ENC_KEY = b'UMvubtiSmU37xmSppnWfWngGp07XVLBl75Q4aqJvNq4=' # key to encrypt dob
+ENC_KEY = b'' # key to encrypt dob
 
 
